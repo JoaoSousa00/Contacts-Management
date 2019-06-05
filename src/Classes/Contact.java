@@ -52,9 +52,9 @@ public class Contact {
     /**
      * Parameterized Constructor of a National Contact.
      * 
-     * @param name
-     * @param apelido
-     * @param phoneNumber 
+     * @param name Name of the contact
+     * @param apelido Last name of the contact
+     * @param phoneNumber Phone number of the contact
      */
     public Contact(String name, String apelido, String phoneNumber) {
         this.setName(name);
@@ -66,12 +66,11 @@ public class Contact {
     /**
      * Parameterized Constructor of a International Contact.
      * 
-     * @param name
-     * @param apelido
-     * @param phoneNumber
-     * @param international
-     * @param countryIdentifier
-     * @param countryName 
+     * @param name Name of the contact
+     * @param apelido Last name of the contact
+     * @param phoneNumber Phone number of the contact
+     * @param countryIdentifier Country ID of the contact
+     * @param countryName Name of the country of the contact
      */
     public Contact(String name, String apelido, String phoneNumber, String countryIdentifier, String countryName) {
         this.setName(name);
@@ -96,8 +95,8 @@ public class Contact {
                 throw new InvalidNameException("|Erro: Nome inváildo.");
             
             for(int i=1; i<name.length()-1; i++){
-                if(name.charAt(i)>=65 || name.charAt(i)<=90 || name.charAt(i) == 32)
-                    throw new InvalidNameException("|Erro: Nome inváildo na posição " + i+1 + ".");
+                if( (name.charAt(i)>=65 && name.charAt(i)<=90) || name.charAt(i) == 32)
+                    throw new InvalidNameException("|Erro: Nome inváildo na posição " + (i+1) + ".");
             }
             
             this.name = name;
@@ -122,8 +121,8 @@ public class Contact {
                 throw new InvalidNameException("|Erro: Apelido inváildo.");
             
             for(int i=1; i<apelido.length()-1; i++){
-                if(apelido.charAt(i)>=65 || apelido.charAt(i)<=90 || apelido.charAt(i) == 32)
-                    throw new InvalidNameException("|Erro: Apelido inváildo na posição " + i+1 + ".");
+                if( (apelido.charAt(i)>=65 && apelido.charAt(i)<=90) || apelido.charAt(i) == 32 )
+                    throw new InvalidNameException("|Erro: Apelido inváildo na posição " + (i+1) + ".");
             }
             
             this.apelido = apelido;
@@ -170,11 +169,11 @@ public class Contact {
     public boolean setCountryIdentifier(String countryIdentifier) {
         boolean done = false;
         try{
-            if( countryIdentifier.isEmpty() || countryIdentifier.charAt(0)!= 0 || countryIdentifier.charAt(1)!= 0 )
+            if( countryIdentifier.isEmpty() || countryIdentifier.charAt(0)!= 48 || countryIdentifier.charAt(1)!= 48 )
                 throw new ContactCountryException("|Erro: Indicativo do país inváildo.");
             
             for(int i=0; i<countryIdentifier.length()-1; i++ ){
-                if( countryIdentifier.charAt(i) > 57 || countryIdentifier.charAt(i) < 48 )
+                if( countryIdentifier.charAt(i) > 57 && countryIdentifier.charAt(i) < 48 )
                     throw new ContactCountryException("|Erro: Introduza apenas digitos.");
             }
             
@@ -200,7 +199,7 @@ public class Contact {
                 throw new ContactCountryException("|Erro: Nome do país inváildo.");
             
             for(int i=0; i<countryName.length()-1 ; i++ ){
-                if( countryName.charAt(i) > 57 || countryName.charAt(i) < 48 || countryName.charAt(i) == 32 )
+                if( (countryName.charAt(i) > 57 && countryName.charAt(i) < 48) || countryName.charAt(i) == 32 )
                     throw new ContactCountryException("|Erro: Não introduza maiusculas nem espaços no meio da palavra.");
             }
             
@@ -254,7 +253,9 @@ public class Contact {
         return countryName;
     }
     
-    
-    
+    @Override
+    public String toString(){
+        return ( "\nName: " + this.name + "\nLastName: " + this.apelido + "\nPhoneNumber: " + this.phoneNumber );
+    }
     
 }
